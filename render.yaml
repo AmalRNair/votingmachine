@@ -3,7 +3,7 @@ services:
     name: evm-voting-system
     runtime: node
     buildCommand: npm ci && npm run build
-    startCommand: npx serve -s dist -p $PORT
+    startCommand: npm start
     envVars:
       - key: NODE_VERSION
         value: 18
