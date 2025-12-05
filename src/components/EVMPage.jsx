@@ -10,22 +10,23 @@ const EVMPage = () => {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [glowingBulb, setGlowingBulb] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [currentLocationId, setCurrentLocationId] = useState(null);
 
   useEffect(() => {
-    // Set initial level based on locationId or default to Ward
-    let initialLevel = 'Ward';
-    if (locationId && locationId.includes('_B')) initialLevel = 'Block';
-    if (locationId && locationId.includes('_D')) initialLevel = 'District';
+    // Set location ID (default to 1 if not provided)
+    const locId = locationId || '1';
+    setCurrentLocationId(locId);
     
-    setCurrentLevel(initialLevel);
-    updateData(initialLevel);
+    // Default to Ward level
+    setCurrentLevel('Ward');
+    updateData('Ward', locId);
   }, [locationId]);
 
-  const updateData = (level) => {
-    const data = evmLocations[level];
-    if (data) {
-      setLocationData(data);
-      setTheme(getLevelTheme(data.level));
+  const updateData = (level, locId = currentLocationId) => {
+    const locationData = evmLocations[locId];
+    if (locationData && locationData[level]) {
+      setLocationData(locationData[level]);
+      setTheme(getLevelTheme(level));
     }
   };
 
@@ -296,7 +297,7 @@ const EVMPage = () => {
               fontWeight: 'bold', 
               color: '#333' 
             }}>
-              Ballot Unit 1
+              {evmLocations[currentLocationId]?.locationName || 'Location'} - Ballot Unit {currentLocationId}
             </div>
           </div>
 
