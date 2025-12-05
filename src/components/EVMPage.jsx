@@ -301,96 +301,125 @@ const EVMPage = () => {
             </div>
           </div>
 
-          {/* Candidate Rows - Mobile Responsive */}
-          <div>
+          {/* Candidate Table with Proper Borders */}
+          <div style={{
+            border: '2px solid #D1D5DB',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            backgroundColor: 'white'
+          }}>
             {locationData.candidates.map((candidate, index) => (
               <div key={candidate.id} style={{
-                display: 'flex',
+                display: 'grid',
+                gridTemplateColumns: '50px 1fr 60px 40px 80px',
                 alignItems: 'center',
-                padding: window.innerWidth <= 480 ? '10px 8px' : '12px',
+                padding: window.innerWidth <= 480 ? '8px' : '12px',
                 borderBottom: index < locationData.candidates.length - 1 ? '1px solid #E5E7EB' : 'none',
-                backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                minHeight: window.innerWidth <= 480 ? '50px' : '60px'
+                backgroundColor: 'white',
+                minHeight: window.innerWidth <= 480 ? '50px' : '55px',
+                gap: window.innerWidth <= 480 ? '8px' : '12px'
               }}>
-                {/* Row Number - Mobile Responsive */}
+                {/* Row Number with Border */}
                 <div style={{
-                  width: window.innerWidth <= 480 ? '25px' : '30px',
-                  fontSize: window.innerWidth <= 480 ? '12px' : '14px',
-                  color: '#666',
+                  fontSize: window.innerWidth <= 480 ? '14px' : '16px',
+                  color: '#1E40AF',
                   fontWeight: 'bold',
-                  flexShrink: 0
+                  textAlign: 'center',
+                  borderRight: '1px solid #E5E7EB',
+                  paddingRight: '8px',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
                   {candidate.id}
                 </div>
 
-                {/* Candidate Name - Mobile Responsive */}
+                {/* Candidate Name with Border */}
                 <div style={{
-                  flex: 1,
                   fontSize: window.innerWidth <= 480 ? '14px' : '16px',
                   color: '#333',
                   fontWeight: candidate.name ? 'bold' : 'normal',
-                  paddingLeft: window.innerWidth <= 480 ? '10px' : '20px',
-                  paddingRight: window.innerWidth <= 480 ? '5px' : '10px',
+                  paddingLeft: window.innerWidth <= 480 ? '8px' : '12px',
+                  paddingRight: window.innerWidth <= 480 ? '8px' : '12px',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
+                  borderRight: '1px solid #E5E7EB',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center'
                 }}>
                   {candidate.name}
                 </div>
 
-                {/* Symbol - Mobile Responsive */}
+                {/* Symbol with Border */}
                 <div style={{
-                  width: window.innerWidth <= 480 ? '30px' : '40px',
                   textAlign: 'center',
-                  fontSize: window.innerWidth <= 480 ? '16px' : '20px',
-                  flexShrink: 0
+                  fontSize: window.innerWidth <= 480 ? '18px' : '22px',
+                  borderRight: '1px solid #E5E7EB',
+                  paddingRight: '8px',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}>
                   {candidate.symbol}
                 </div>
 
-                {/* Red Bulb (Glows when voted) - Mobile Responsive */}
+                {/* Red Bulb with Border */}
                 <div style={{
-                  width: window.innerWidth <= 480 ? '16px' : '20px',
-                  height: window.innerWidth <= 480 ? '16px' : '20px',
-                  backgroundColor: glowingBulb === candidate.id ? '#FF0000' : '#8B5A2B',
-                  borderRadius: '50%',
-                  marginLeft: window.innerWidth <= 480 ? '8px' : '15px',
-                  marginRight: window.innerWidth <= 480 ? '8px' : '10px',
-                  boxShadow: glowingBulb === candidate.id ? '0 0 15px #FF0000, 0 0 30px #FF0000' : 'none',
-                  transition: 'all 0.3s ease',
-                  flexShrink: 0
-                }}></div>
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRight: '1px solid #E5E7EB',
+                  paddingRight: '8px',
+                  height: '100%'
+                }}>
+                  <div style={{
+                    width: window.innerWidth <= 480 ? '16px' : '20px',
+                    height: window.innerWidth <= 480 ? '16px' : '20px',
+                    backgroundColor: glowingBulb === candidate.id ? '#FF0000' : '#8B5A2B',
+                    borderRadius: '50%',
+                    boxShadow: glowingBulb === candidate.id ? '0 0 15px #FF0000, 0 0 30px #FF0000' : 'none',
+                    transition: 'all 0.3s ease'
+                  }}></div>
+                </div>
 
-                {/* Vote Button (No text, just blue background) - Mobile Responsive */}
-                <button
-                  onClick={candidate.name ? () => handleVote(candidate.id) : undefined}
-                  disabled={!candidate.name}
-                  style={{
-                    backgroundColor: candidate.name ? '#1E40AF' : '#9CA3AF',
-                    border: 'none',
-                    padding: window.innerWidth <= 480 ? '6px 15px' : '8px 20px',
-                    borderRadius: window.innerWidth <= 480 ? '6px' : '8px',
-                    cursor: candidate.name ? 'pointer' : 'not-allowed',
-                    minWidth: window.innerWidth <= 480 ? '50px' : '60px',
-                    minHeight: window.innerWidth <= 480 ? '28px' : '32px',
-                    touchAction: 'manipulation',
-                    WebkitTapHighlightColor: 'transparent',
-                    flexShrink: 0,
-                    opacity: candidate.name ? 1 : 0.5
-                  }}
-                  onMouseOver={(e) => {
-                    if (candidate.name) {
-                      e.target.style.backgroundColor = '#1E3A8A';
-                    }
-                  }}
-                  onMouseOut={(e) => {
-                    if (candidate.name) {
-                      e.target.style.backgroundColor = '#1E40AF';
-                    }
-                  }}
-                >
-                  {/* Empty button - no text */}
-                </button>
+                {/* Vote Button */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '100%'
+                }}>
+                  <button
+                    onClick={candidate.name ? () => handleVote(candidate.id) : undefined}
+                    style={{
+                      backgroundColor: '#1E40AF',
+                      border: 'none',
+                      padding: window.innerWidth <= 480 ? '6px 12px' : '8px 16px',
+                      borderRadius: window.innerWidth <= 480 ? '6px' : '8px',
+                      cursor: candidate.name ? 'pointer' : 'default',
+                      minWidth: window.innerWidth <= 480 ? '45px' : '55px',
+                      minHeight: window.innerWidth <= 480 ? '28px' : '32px',
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent'
+                    }}
+                    onMouseOver={(e) => {
+                      if (candidate.name) {
+                        e.target.style.backgroundColor = '#1E3A8A';
+                      }
+                    }}
+                    onMouseOut={(e) => {
+                      if (candidate.name) {
+                        e.target.style.backgroundColor = '#1E40AF';
+                      }
+                    }}
+                  >
+                    {/* Empty button - no text */}
+                  </button>
+                </div>
               </div>
             ))}
           </div>
