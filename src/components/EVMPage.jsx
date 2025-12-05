@@ -311,7 +311,7 @@ const EVMPage = () => {
             {locationData.candidates.map((candidate, index) => (
               <div key={candidate.id} style={{
                 display: 'grid',
-                gridTemplateColumns: '50px 1fr 60px 40px 80px',
+                gridTemplateColumns: '50px 1fr 40px 80px',
                 alignItems: 'center',
                 padding: window.innerWidth <= 480 ? '8px' : '12px',
                 borderBottom: index < locationData.candidates.length - 1 ? '1px solid #E5E7EB' : 'none',
@@ -335,36 +335,35 @@ const EVMPage = () => {
                   {candidate.id}
                 </div>
 
-                {/* Candidate Name with Border */}
+                {/* Candidate Name and Symbol Combined with Border */}
                 <div style={{
-                  fontSize: window.innerWidth <= 480 ? '14px' : '16px',
-                  color: '#333',
-                  fontWeight: candidate.name ? 'bold' : 'normal',
-                  paddingLeft: window.innerWidth <= 480 ? '8px' : '12px',
-                  paddingRight: window.innerWidth <= 480 ? '8px' : '12px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  borderRight: '1px solid #E5E7EB',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}>
-                  {candidate.name}
-                </div>
-
-                {/* Symbol with Border */}
-                <div style={{
-                  textAlign: 'center',
-                  fontSize: window.innerWidth <= 480 ? '18px' : '22px',
-                  borderRight: '1px solid #E5E7EB',
-                  paddingRight: '8px',
-                  height: '100%',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'space-between',
+                  paddingLeft: window.innerWidth <= 480 ? '8px' : '12px',
+                  paddingRight: window.innerWidth <= 480 ? '8px' : '12px',
+                  borderRight: '1px solid #E5E7EB',
+                  height: '100%',
+                  minWidth: 0 // Allow flex item to shrink
                 }}>
-                  {candidate.symbol}
+                  <div style={{
+                    fontSize: window.innerWidth <= 480 ? '14px' : '16px',
+                    color: '#333',
+                    fontWeight: candidate.name ? 'bold' : 'normal',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    flex: 1,
+                    marginRight: candidate.symbol ? '8px' : '0'
+                  }}>
+                    {candidate.name}
+                  </div>
+                  <div style={{
+                    fontSize: window.innerWidth <= 480 ? '18px' : '22px',
+                    flexShrink: 0
+                  }}>
+                    {candidate.symbol}
+                  </div>
                 </div>
 
                 {/* Red Bulb with Border */}
