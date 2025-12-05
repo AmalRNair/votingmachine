@@ -451,7 +451,7 @@ const EVMPage = () => {
           <button
             onClick={() => handleTabClick("Block")}
             style={{
-              backgroundColor: currentLevel === "Block" ? "#EC4899" : "#D1D5DB",
+              backgroundColor: currentLevel === "Block" ? "#D1D5DB" : "#EC4899",
               color: "white",
               padding: isMobile ? "8px 20px" : "10px 30px",
               borderRadius: "20px",
@@ -470,7 +470,7 @@ const EVMPage = () => {
             onClick={() => handleTabClick("District")}
             style={{
               backgroundColor:
-                currentLevel === "District" ? "#0891B2" : "#D1D5DB",
+                currentLevel === "District" ? "#D1D5DB" : "#0891b2",
               color: "white",
               padding: isMobile ? "8px 20px" : "10px 30px",
               borderRadius: "20px",
