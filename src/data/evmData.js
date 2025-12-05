@@ -17,12 +17,12 @@ export const evmData = {
               districtDivision: "Kasaragod-12",
               Ward: {
                 level: "Ward",
-                title: "Vote For ടി ടി ദിലീപൻ മാസ്റ്റർ",
+                title: "Vote For ടി ദിലീപൻ മാസ്റ്റർ",
                 candidates: [
                   { id: 1, name: "", symbol: "" },
                   {
                     id: 2,
-                    name: "ടി ടി ദിലീപൻ മാസ്റ്റർ",
+                    name: "ടി  ദിലീപൻ മാസ്റ്റർ",
                     symbol: "cpim.jpeg",
                     candidateImgName: "dileepan.jpeg",
                   },

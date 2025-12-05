@@ -11,6 +11,31 @@ const EVMPage = () => {
   const [glowingBulb, setGlowingBulb] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [currentLocationId, setCurrentLocationId] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Handle window resize for responsiveness
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Responsive breakpoints
+  const isMobile = windowWidth <= 480;
+  const isTablet = windowWidth <= 768;
+
+  // Add blink animation styles
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+    `;
+    document.head.appendChild(style);
+    return () => document.head.removeChild(style);
+  }, []);
 
   useEffect(() => {
     const pId = panchayatId || "1";
@@ -132,17 +157,17 @@ const EVMPage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: window.innerWidth <= 480 ? "20px" : "0",
+          padding: isMobile ? "20px" : "0",
         }}
       >
         <div
           style={{
             backgroundColor: "white",
-            borderRadius: window.innerWidth <= 480 ? "15px" : "20px",
-            padding: window.innerWidth <= 480 ? "30px 20px" : "40px",
+            borderRadius: isMobile ? "15px" : "20px",
+            padding: isMobile ? "30px 20px" : "40px",
             textAlign: "center",
             boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-            maxWidth: window.innerWidth <= 480 ? "90%" : "400px",
+            maxWidth: isMobile ? "90%" : "400px",
             width: "100%",
           }}
         >
@@ -151,11 +176,11 @@ const EVMPage = () => {
               src={`/candidate/${selectedCandidate.candidateImgName}`}
               alt={selectedCandidate.name}
               style={{
-                width: window.innerWidth <= 480 ? "120px" : "150px",
-                height: window.innerWidth <= 480 ? "120px" : "150px",
+                width: isMobile ? "120px" : "150px",
+                height: isMobile ? "120px" : "150px",
                 borderRadius: "50%",
                 objectFit: "contain",
-                marginBottom: window.innerWidth <= 480 ? "15px" : "20px",
+                marginBottom: isMobile ? "15px" : "20px",
                 border: "4px solid #10B981",
               }}
               onError={(e) => {
@@ -166,8 +191,8 @@ const EVMPage = () => {
           ) : null}
           <div
             style={{
-              fontSize: window.innerWidth <= 480 ? "3rem" : "4rem",
-              marginBottom: window.innerWidth <= 480 ? "15px" : "20px",
+              fontSize: isMobile ? "3rem" : "4rem",
+              marginBottom: isMobile ? "15px" : "20px",
               display: selectedCandidate?.candidateImgName ? "none" : "block",
             }}
           >
@@ -176,8 +201,8 @@ const EVMPage = () => {
           <h2
             style={{
               color: "#10B981",
-              fontSize: window.innerWidth <= 480 ? "1.5rem" : "2rem",
-              marginBottom: window.innerWidth <= 480 ? "10px" : "15px",
+              fontSize: isMobile ? "1.5rem" : "2rem",
+              marginBottom: isMobile ? "10px" : "15px",
               fontWeight: "bold",
             }}
           >
@@ -186,8 +211,8 @@ const EVMPage = () => {
           <p
             style={{
               color: "#666",
-              fontSize: window.innerWidth <= 480 ? "1rem" : "1.1rem",
-              marginBottom: window.innerWidth <= 480 ? "25px" : "30px",
+              fontSize: isMobile ? "1rem" : "1.1rem",
+              marginBottom: isMobile ? "25px" : "30px",
               lineHeight: "1.5",
             }}
           >
@@ -199,14 +224,14 @@ const EVMPage = () => {
               backgroundColor: "#059669",
               color: "white",
               border: "none",
-              padding: window.innerWidth <= 480 ? "12px 25px" : "15px 30px",
-              borderRadius: window.innerWidth <= 480 ? "8px" : "10px",
-              fontSize: window.innerWidth <= 480 ? "14px" : "16px",
+              padding: isMobile ? "12px 25px" : "15px 30px",
+              borderRadius: isMobile ? "8px" : "10px",
+              fontSize: isMobile ? "14px" : "16px",
               fontWeight: "bold",
               cursor: "pointer",
               touchAction: "manipulation",
               WebkitTapHighlightColor: "transparent",
-              minWidth: window.innerWidth <= 480 ? "120px" : "140px",
+              minWidth: isMobile ? "120px" : "140px",
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#047857")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#059669")}
@@ -224,7 +249,7 @@ const EVMPage = () => {
         minHeight: "100vh",
         backgroundColor: "#f5f5f5",
         fontFamily: "Arial, sans-serif",
-        padding: window.innerWidth <= 768 ? "10px" : "20px",
+        padding: isTablet ? "10px" : "20px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -242,7 +267,7 @@ const EVMPage = () => {
           style={{
             display: "flex",
             marginBottom: "0",
-            gap: window.innerWidth <= 480 ? "5px" : "10px",
+            gap: isMobile ? "5px" : "10px",
             justifyContent: "center",
             flexWrap: "wrap",
           }}
@@ -252,13 +277,13 @@ const EVMPage = () => {
             style={{
               backgroundColor: currentLevel === "Ward" ? "#9CA3AF" : "#D1D5DB",
               color: "white",
-              padding: window.innerWidth <= 480 ? "8px 20px" : "10px 30px",
+              padding: isMobile ? "8px 20px" : "10px 30px",
               borderRadius: "20px",
-              fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+              fontSize: isMobile ? "12px" : "14px",
               fontWeight: "bold",
               border: "none",
               cursor: "pointer",
-              minWidth: window.innerWidth <= 480 ? "70px" : "80px",
+              minWidth: isMobile ? "70px" : "80px",
               touchAction: "manipulation",
               WebkitTapHighlightColor: "transparent",
             }}
@@ -270,13 +295,13 @@ const EVMPage = () => {
             style={{
               backgroundColor: currentLevel === "Block" ? "#EC4899" : "#D1D5DB",
               color: "white",
-              padding: window.innerWidth <= 480 ? "8px 20px" : "10px 30px",
+              padding: isMobile ? "8px 20px" : "10px 30px",
               borderRadius: "20px",
-              fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+              fontSize: isMobile ? "12px" : "14px",
               fontWeight: "bold",
               border: "none",
               cursor: "pointer",
-              minWidth: window.innerWidth <= 480 ? "70px" : "80px",
+              minWidth: isMobile ? "70px" : "80px",
               touchAction: "manipulation",
               WebkitTapHighlightColor: "transparent",
             }}
@@ -289,13 +314,13 @@ const EVMPage = () => {
               backgroundColor:
                 currentLevel === "District" ? "#0891B2" : "#D1D5DB",
               color: "white",
-              padding: window.innerWidth <= 480 ? "8px 20px" : "10px 30px",
+              padding: isMobile ? "8px 20px" : "10px 30px",
               borderRadius: "20px",
-              fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+              fontSize: isMobile ? "12px" : "14px",
               fontWeight: "bold",
               border: "none",
               cursor: "pointer",
-              minWidth: window.innerWidth <= 480 ? "70px" : "80px",
+              minWidth: isMobile ? "70px" : "80px",
               touchAction: "manipulation",
               WebkitTapHighlightColor: "transparent",
             }}
@@ -309,8 +334,8 @@ const EVMPage = () => {
           style={{
             backgroundColor: theme.containerColor,
             border: `3px solid ${theme.borderColor}`,
-            borderRadius: window.innerWidth <= 480 ? "15px" : "20px",
-            padding: window.innerWidth <= 480 ? "15px" : "20px",
+            borderRadius: isMobile ? "15px" : "20px",
+            padding: isMobile ? "15px" : "20px",
             marginTop: "10px",
           }}
         >
@@ -318,9 +343,9 @@ const EVMPage = () => {
           <div
             style={{
               backgroundColor: "white",
-              padding: window.innerWidth <= 480 ? "12px" : "15px",
-              borderRadius: window.innerWidth <= 480 ? "8px" : "10px",
-              marginBottom: window.innerWidth <= 480 ? "15px" : "20px",
+              padding: isMobile ? "12px" : "15px",
+              borderRadius: isMobile ? "8px" : "10px",
+              marginBottom: isMobile ? "15px" : "20px",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
@@ -330,13 +355,13 @@ const EVMPage = () => {
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: window.innerWidth <= 480 ? "8px" : "10px",
+                gap: isMobile ? "8px" : "10px",
               }}
             >
               <span
                 style={{
                   color: "#10B981",
-                  fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+                  fontSize: isMobile ? "12px" : "14px",
                   fontWeight: "bold",
                 }}
               >
@@ -344,8 +369,8 @@ const EVMPage = () => {
               </span>
               <div
                 style={{
-                  width: window.innerWidth <= 480 ? "6px" : "8px",
-                  height: window.innerWidth <= 480 ? "6px" : "8px",
+                  width: isMobile ? "6px" : "8px",
+                  height: isMobile ? "6px" : "8px",
                   backgroundColor: "#10B981",
                   borderRadius: "50%",
                 }}
@@ -353,7 +378,7 @@ const EVMPage = () => {
             </div>
             <div
               style={{
-                fontSize: window.innerWidth <= 480 ? "14px" : "16px",
+                fontSize: isMobile ? "14px" : "16px",
                 fontWeight: "bold",
                 color: "#333",
               }}
@@ -391,14 +416,13 @@ const EVMPage = () => {
                   {/* Row Number */}
                   <td
                     style={{
-                      width: window.innerWidth <= 480 ? "50px" : "60px",
-                      padding:
-                        window.innerWidth <= 480 ? "12px 8px" : "16px 12px",
+                      width: isMobile ? "50px" : "60px",
+                      padding: isMobile ? "12px 8px" : "16px 12px",
                       borderRight: "6px solid #E5E7EB",
                       textAlign: "center",
                       verticalAlign: "middle",
-                      fontSize: window.innerWidth <= 480 ? "16px" : "18px",
-                      color: "#374151",
+                      fontSize: isMobile ? "16px" : "18px",
+                      color: candidate.name ? "#374151" : "#a1a6aeff",
                       fontWeight: "bold",
                     }}
                   >
@@ -408,7 +432,7 @@ const EVMPage = () => {
                   {/* Candidate Name and Symbol */}
                   <td
                     style={{
-                      padding: window.innerWidth <= 480 ? "12px" : "16px",
+                      padding: isMobile ? "12px" : "16px",
                       borderRight: "6px solid #E5E7EB",
                       verticalAlign: "middle",
                     }}
@@ -423,7 +447,7 @@ const EVMPage = () => {
                     >
                       <div
                         style={{
-                          fontSize: window.innerWidth <= 480 ? "16px" : "18px",
+                          fontSize: isMobile ? "12px" : "14px",
                           color: "#111827",
                           fontWeight: candidate.name ? "700" : "normal",
                           flex: 1,
@@ -436,7 +460,7 @@ const EVMPage = () => {
                       </div>
                       <div
                         style={{
-                          fontSize: window.innerWidth <= 480 ? "20px" : "24px",
+                          fontSize: "30px",
                           marginLeft: "8px",
                           flexShrink: 0,
                         }}
@@ -450,9 +474,8 @@ const EVMPage = () => {
                                 : "No Symbol"
                             }
                             style={{
-                              width: window.innerWidth <= 480 ? "24px" : "30px",
-                              height:
-                                window.innerWidth <= 480 ? "24px" : "30px",
+                              width: isMobile ? "28px" : "30px",
+                              height: isMobile ? "28px" : "30px",
                               objectFit: "contain",
                             }}
                             onError={(e) => {
@@ -468,11 +491,11 @@ const EVMPage = () => {
                     </div>
                   </td>
 
-                  {/* Red Bulb and Vote Button in Same Column */}
+                  {/* Arrow and Vote Button Column */}
                   <td
                     style={{
-                      width: window.innerWidth <= 480 ? "90px" : "100px",
-                      padding: window.innerWidth <= 480 ? "12px" : "16px",
+                      width: isMobile ? "90px" : "100px",
+                      padding: isMobile ? "12px" : "16px",
                       textAlign: "center",
                       verticalAlign: "middle",
                     }}
@@ -482,27 +505,57 @@ const EVMPage = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        gap: window.innerWidth <= 480 ? "8px" : "12px",
+                        gap: isMobile ? "8px" : "12px",
                       }}
                     >
-                      {/* Red Bulb */}
+                      {/* Left Arrow with Bar Indicator */}
                       <div
                         style={{
-                          width: window.innerWidth <= 480 ? "16px" : "20px",
-                          height: window.innerWidth <= 480 ? "16px" : "20px",
-                          backgroundColor:
+                          display: "flex",
+                          alignItems: "center",
+                          filter:
                             glowingBulb === candidate.id
-                              ? "#FF0000"
-                              : "#8B5A2B",
-                          borderRadius: "50%",
-                          boxShadow:
-                            glowingBulb === candidate.id
-                              ? "0 0 15px #FF0000, 0 0 30px #FF0000"
+                              ? "drop-shadow(0 0 8px #FF0000) drop-shadow(0 0 15px #FF0000)"
                               : "none",
-                          transition: "all 0.3s ease",
+                          animation:
+                            glowingBulb === candidate.id
+                              ? "blink 0.3s ease-in-out infinite"
+                              : "none",
                           flexShrink: 0,
                         }}
-                      ></div>
+                      >
+                        {/* Arrow Triangle */}
+                        <div
+                          style={{
+                            width: "0",
+                            height: "0",
+                            borderTop: isMobile
+                              ? "10px solid transparent"
+                              : "12px solid transparent",
+                            borderBottom: isMobile
+                              ? "10px solid transparent"
+                              : "12px solid transparent",
+                            borderRight: isMobile ? "12px solid" : "14px solid",
+                            borderRightColor:
+                              glowingBulb === candidate.id
+                                ? "#FF0000"
+                                : "#8B5A2B",
+                            transition: "all 0.3s ease",
+                          }}
+                        ></div>
+                        {/* Horizontal Bar */}
+                        <div
+                          style={{
+                            width: isMobile ? "12px" : "14px",
+                            height: isMobile ? "8px" : "10px",
+                            backgroundColor:
+                              glowingBulb === candidate.id
+                                ? "#FF0000"
+                                : "#8B5A2B",
+                            transition: "all 0.3s ease",
+                          }}
+                        ></div>
+                      </div>
 
                       {/* Vote Button */}
                       <button
@@ -514,13 +567,11 @@ const EVMPage = () => {
                         style={{
                           backgroundColor: "#1E40AF",
                           border: "none",
-                          padding:
-                            window.innerWidth <= 480 ? "8px 12px" : "10px 16px",
-                          borderRadius:
-                            window.innerWidth <= 480 ? "6px" : "8px",
+                          padding: isMobile ? "8px 12px" : "10px 16px",
+                          borderRadius: isMobile ? "6px" : "8px",
                           cursor: candidate.name ? "pointer" : "default",
-                          minWidth: window.innerWidth <= 480 ? "45px" : "55px",
-                          minHeight: window.innerWidth <= 480 ? "30px" : "35px",
+                          minWidth: isMobile ? "45px" : "55px",
+                          minHeight: isMobile ? "30px" : "35px",
                           touchAction: "manipulation",
                           WebkitTapHighlightColor: "transparent",
                           flexShrink: 0,
@@ -550,7 +601,7 @@ const EVMPage = () => {
         <div
           style={{
             textAlign: "center",
-            marginTop: window.innerWidth <= 480 ? "15px" : "20px",
+            marginTop: isMobile ? "15px" : "20px",
           }}
         >
           <button
@@ -558,9 +609,9 @@ const EVMPage = () => {
               backgroundColor: "#059669",
               color: "white",
               border: "none",
-              padding: window.innerWidth <= 480 ? "10px 20px" : "12px 30px",
-              borderRadius: window.innerWidth <= 480 ? "15px" : "20px",
-              fontSize: window.innerWidth <= 480 ? "12px" : "14px",
+              padding: isMobile ? "10px 20px" : "12px 30px",
+              borderRadius: isMobile ? "15px" : "20px",
+              fontSize: isMobile ? "12px" : "14px",
               fontWeight: "bold",
               cursor: "pointer",
               touchAction: "manipulation",
