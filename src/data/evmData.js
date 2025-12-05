@@ -38,15 +38,19 @@ export const evmData = {
               },
               Block: {
                 level: "Block",
-                title: "Vote For കെ പ്രീത ",
+                title: "Vote For കെ.സി. രേണുക",
                 candidates: [
                   {
                     id: 1,
-                    name: "കെ പ്രീത",
+                    name: "",
+                    symbol: "",
+                  },
+                  {
+                    id: 2,
+                    name: "കെ.സി. രേണുക",
                     symbol: "cpim.jpeg",
                     candidateImgName: "preetha.jpeg",
                   },
-                  { id: 2, name: "", symbol: "" },
                   { id: 3, name: "", symbol: "" },
                   { id: 4, name: "", symbol: "" },
                   { id: 5, name: "", symbol: "" },
@@ -62,12 +66,16 @@ export const evmData = {
                 title: "Vote For വി വി പവിത്രൻ",
                 candidates: [
                   { id: 1, name: "", symbol: "" },
-                  { id: 2, name: "", symbol: "" },
                   {
-                    id: 3,
+                    id: 2,
                     name: "വി വി പവിത്രൻ",
                     symbol: "cpim.jpeg",
                     candidateImgName: "pavithran.jpeg",
+                  },
+                  {
+                    id: 3,
+                    name: "",
+                    symbol: "",
                   },
                   { id: 4, name: "", symbol: "" },
                   { id: 5, name: "", symbol: "" },
