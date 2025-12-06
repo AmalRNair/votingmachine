@@ -13,7 +13,6 @@ const EVMPage = () => {
   const [currentLocationId, setCurrentLocationId] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  console.log(panchayatId);
   // Handle window resize for responsiveness
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -24,6 +23,7 @@ const EVMPage = () => {
   // Responsive breakpoints
   const isMobile = windowWidth <= 480;
   const isTablet = windowWidth <= 768;
+  const isRestrictedPanchayat = String(panchayatId || "1") === "2161";
 
   // Add blink animation styles
   useEffect(() => {
@@ -56,6 +56,10 @@ const EVMPage = () => {
   };
 
   const handleTabClick = (level) => {
+    if (isRestrictedPanchayat && level !== "Ward") {
+      return;
+    }
+
     setCurrentLevel(level);
     updateData(level);
     setShowSuccess(false);
@@ -460,43 +464,47 @@ const EVMPage = () => {
           >
             Ward
           </button>
-          <button
-            onClick={() => handleTabClick("Block")}
-            style={{
-              backgroundColor: currentLevel === "Block" ? "#D1D5DB" : "#EC4899",
-              color: "white",
-              padding: isMobile ? "8px 20px" : "10px 30px",
-              borderRadius: "20px",
-              fontSize: isMobile ? "12px" : "14px",
-              fontWeight: "bold",
-              border: "none",
-              cursor: "pointer",
-              minWidth: isMobile ? "70px" : "80px",
-              touchAction: "manipulation",
-              WebkitTapHighlightColor: "transparent",
-            }}
-          >
-            Block
-          </button>
-          <button
-            onClick={() => handleTabClick("District")}
-            style={{
-              backgroundColor:
-                currentLevel === "District" ? "#D1D5DB" : "#0891b2",
-              color: "white",
-              padding: isMobile ? "8px 20px" : "10px 30px",
-              borderRadius: "20px",
-              fontSize: isMobile ? "12px" : "14px",
-              fontWeight: "bold",
-              border: "none",
-              cursor: "pointer",
-              minWidth: isMobile ? "70px" : "80px",
-              touchAction: "manipulation",
-              WebkitTapHighlightColor: "transparent",
-            }}
-          >
-            District
-          </button>
+          {!isRestrictedPanchayat && (
+            <>
+              <button
+                onClick={() => handleTabClick("Block")}
+                style={{
+                  backgroundColor: currentLevel === "Block" ? "#D1D5DB" : "#EC4899",
+                  color: "white",
+                  padding: isMobile ? "8px 20px" : "10px 30px",
+                  borderRadius: "20px",
+                  fontSize: isMobile ? "12px" : "14px",
+                  fontWeight: "bold",
+                  border: "none",
+                  cursor: "pointer",
+                  minWidth: isMobile ? "70px" : "80px",
+                  touchAction: "manipulation",
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
+                Block
+              </button>
+              <button
+                onClick={() => handleTabClick("District")}
+                style={{
+                  backgroundColor:
+                    currentLevel === "District" ? "#D1D5DB" : "#0891b2",
+                  color: "white",
+                  padding: isMobile ? "8px 20px" : "10px 30px",
+                  borderRadius: "20px",
+                  fontSize: isMobile ? "12px" : "14px",
+                  fontWeight: "bold",
+                  border: "none",
+                  cursor: "pointer",
+                  minWidth: isMobile ? "70px" : "80px",
+                  touchAction: "manipulation",
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
+                District
+              </button>
+            </>
+          )}
         </div>
 
         {/* EVM Container - Mobile Responsive */}
