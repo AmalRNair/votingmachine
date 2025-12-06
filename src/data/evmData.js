@@ -796,7 +796,7 @@ export const evmData = {
                     name: "കെ.സി. രേണുക",
                     symbol: "cpim.jpeg",
                     successSymbol: "cpim-success.png",
-                    candidateImgName: "preetha.jpeg",
+                    candidateImgName: "renukha.jpeg",
                   },
                   { id: 3, name: "", symbol: "" },
                   { id: 4, name: "", symbol: "" },
