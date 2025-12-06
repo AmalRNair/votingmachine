@@ -644,8 +644,8 @@ const EVMPage = () => {
                                 : "No Symbol"
                             }
                             style={{
-                              width: isMobile ? "28px" : "30px",
-                              height: isMobile ? "28px" : "30px",
+                              width: isMobile ? "36px" : "44px",
+                              height: isMobile ? "36px" : "44px",
                               objectFit: "contain",
                             }}
                             onError={(e) => {
